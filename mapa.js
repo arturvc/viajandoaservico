@@ -80,7 +80,24 @@ function carregarMapa() {
 
     //https://api.mapbox.com/styles/v1/arturvc/clcnc0iwi00oy14s1oo4b5v68/wmts?access_token=pk.eyJ1IjoiYXJ0dXJ2YyIsImEiOiJjamVzaXNhaDUwM2dzMnFwa3A2MndjemJ6In0.QkEbXr54ao40qL9I1DuW0g/draft
 
-    const mapa = L.map('itemMapa').setView([-15.7934036, -47.8823172], 4);
+    let grupoAereo = L.layerGroup([]);
+    let grupoInvalido = L.layerGroup([]);
+    let grupoOficial = L.layerGroup([]);
+    let grupoProprio = L.layerGroup([]);
+    let grupoRodoviario = L.layerGroup([]);
+
+    let overlayMaps = {
+        "Transporte aéreo": grupoAereo,
+        "Veículo oficial": grupoOficial,
+        "Veículo próprio": grupoProprio,
+        "Transporte rodoviário": grupoRodoviario,
+        "Outros": grupoInvalido
+    };
+
+
+    const mapa = L.map('itemMapa', {
+        layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario]
+    }, ).setView([-15.7934036, -47.8823172], 4);
     const urlOSM = 'https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}';
     const tilesMap = L.tileLayer(urlOSM, {
         attribution: 'Map data &copy;  <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -136,6 +153,7 @@ function carregarMapa() {
     });
 
 
+
     //////////
     for (let i = 0; i < trechos.length; i++) {
         for (let j = 0; j < pagamentos.length; j++) {
@@ -147,11 +165,8 @@ function carregarMapa() {
             }
         }
     }
-    //console.log(trechos);
-
 
     for (let i = 0; i < trechos.length; i++) {
-
         let latO = coordenadas[i].latOrigem + Math.random(1) / 50;
         let lonO = coordenadas[i].longOrigem + Math.random(1) / 50;
         let latD = coordenadas[i].latDestino + Math.random(1) / 50;
@@ -163,56 +178,96 @@ function carregarMapa() {
             //trechos[i].nomeUnidade = " - ";
         }
 
-
-        let txtOrigem = trechos[i].origemData + "<br> Origem: <strong>" + trechos[i].origemCidade + " - " + trechos[i].origemUF + " - " + trechos[i].origemPais +  "</strong> <br> Destino: " + trechos[i].destinoCidade + " - " + trechos[i].destinoUF + " - " + trechos[i].destinoPais + "<br> Meio de transporte: " + trechos[i].meioTransporte + "<br> Processo nº: " + trechos[i].identidade + "<br>" + trechos[i].nomeOrgao;
-
+        let txtOrigem = trechos[i].origemData + "<br> Origem: <strong>" + trechos[i].origemCidade + " - " + trechos[i].origemUF + " - " + trechos[i].origemPais + "</strong> <br> Destino: " + trechos[i].destinoCidade + " - " + trechos[i].destinoUF + " - " + trechos[i].destinoPais + "<br> Meio de transporte: " + trechos[i].meioTransporte + "<br> Processo nº: " + trechos[i].identidade + "<br>" + trechos[i].nomeOrgao;
         let txtDestino = trechos[i].origemData + "<br> Origem: " + trechos[i].origemCidade + " - " + trechos[i].origemUF + " - " + trechos[i].origemPais + "<br> Destino: <strong>" + trechos[i].destinoCidade + " - " + trechos[i].destinoUF + " - " + trechos[i].destinoPais + "</strong> <br> Meio de transporte: " + trechos[i].meioTransporte + "<br> Processo nº: " + trechos[i].identidade + "<br>" + trechos[i].nomeOrgao;
-
-        let markerOrigem = L.marker([latO, lonO], {
-                icon: iconeOrigem
-            })
-            .bindPopup(txtOrigem)
-            .addTo(mapa);
-
-        /////////////////////////
 
 
         let markerDestino = new L.marker;
-
+        let markerOrigem = new L.marker;
 
 
         switch (trechos[i].meioTransporte) {
             case "aéreo":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
                         icon: iconeAereo
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
+                grupoAereo.addLayer(markerOrigem);
+                grupoAereo.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoAereo);
                 break;
+
             case "inválido":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
                         icon: iconeInvalido
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
+                grupoInvalido.addLayer(markerOrigem);
+                grupoInvalido.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoInvalido);
                 break;
+
             case "rodoviário":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
                         icon: iconeRodoviario
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
+                grupoRodoviario.addLayer(markerOrigem);
+                grupoRodoviario.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoRodoviario);
                 break;
+
             case "veículo oficial":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
                         icon: iconeVeiOficial
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
+                grupoOficial.addLayer(markerOrigem);
+                grupoOficial.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoOficial);
                 break;
+
             case "veículo próprio":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
                         icon: iconeVeiProprio
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
+                grupoProprio.addLayer(markerOrigem);
+                grupoProprio.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoProprio);
                 break;
+
             default:
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
                         icon: iconeOrigem
                     }).bindPopup(txtDestino)
@@ -223,7 +278,6 @@ function carregarMapa() {
 
 
 
-        arquear(latO, lonO, latD, lonD);
 
         // let linha = L.polyline([
         //     [latO, lonO],
@@ -236,7 +290,7 @@ function carregarMapa() {
 
     }
 
-    function arquear(laOr, loOr, laDe, loDe) {
+    function arquear(laOr, loOr, laDe, loDe, grupo) {
 
         // Dica de @ryancatalani: https://gist.github.com/ryancatalani/6091e50bf756088bf9bf5de2017b32e6
         // Plugin https://github.com/elfalem/Leaflet.curve
@@ -288,8 +342,14 @@ function carregarMapa() {
                 'Q', midpointLatLng,
                 latlng2
             ], pathOptions).addTo(mapa);
+        grupo.addLayer(curvedPath);
     }
     ///////////////////
+
+    let layerControl = L.control.layers(null, overlayMaps, {
+        collapsed: false
+    }).addTo(mapa);
+
 
 
 }
