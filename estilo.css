@@ -1,0 +1,58 @@
+body {
+    background-color: #7d00eb;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+}
+
+.geral {
+    height: calc(100vh - 30px);
+}
+
+.menu {
+    margin: 10px;
+    height: 40px;
+    background-color: #eb9917;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    color: #ffffff;
+
+}
+
+#item1,
+#item2 {
+    padding: 10px;
+    flex-basis: 150px;
+}
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.caixaMapa {
+    margin: 10px;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+#itemMapa {
+    padding: 10px;
+    flex: 1;
+}
+
+.caixaTxt {
+    margin: 10px;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: left;
+    align-items: stretch;
+    background-color: #7d00eb;
+}
+
+#itemTxt {
+    padding: 10px;
+    flex: 1;
+}

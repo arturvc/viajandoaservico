@@ -1,0 +1,284 @@
+[
+  {
+    "latOrigem": -1.45056,
+    "longOrigem": -48.4682453,
+    "latDestino": -15.7934036,
+    "longDestino": -47.8823172
+  },
+  {
+    "latOrigem": -15.7934036,
+    "longOrigem": -47.8823172,
+    "latDestino": -1.45056,
+    "longDestino": -48.4682453
+  },
+  {
+    "latOrigem": -3.3973569,
+    "longOrigem": -44.3560724,
+    "latDestino": -3.3973569,
+    "longDestino": -44.3560724
+  },
+  {
+    "latOrigem": -2.5295265,
+    "longOrigem": -44.2963942,
+    "latDestino": -3.3973569,
+    "longDestino": -44.3560724
+  },
+  {
+    "latOrigem": -2.5295265,
+    "longOrigem": -44.2963942,
+    "latDestino": -8.0584933,
+    "longDestino": -34.8848193
+  },
+  {
+    "latOrigem": -8.0584933,
+    "longOrigem": -34.8848193,
+    "latDestino": -2.5295265,
+    "longDestino": -44.2963942
+  },
+  {
+    "latOrigem": -3.3973569,
+    "longOrigem": -44.3560724,
+    "latDestino": -2.5295265,
+    "longDestino": -44.2963942
+  },
+  {
+    "latOrigem": -22.9110137,
+    "longOrigem": -43.2093727,
+    "latDestino": -23.5506507,
+    "longDestino": -46.6333824
+  },
+  {
+    "latOrigem": -23.5506507,
+    "longOrigem": -46.6333824,
+    "latDestino": -22.9110137,
+    "longDestino": -43.2093727
+  },
+  {
+    "latOrigem": -4.8766426,
+    "longOrigem": -66.8961433,
+    "latDestino": -3.1316333,
+    "longDestino": -59.9825041
+  },
+  {
+    "latOrigem": -3.1316333,
+    "longOrigem": -59.9825041,
+    "latDestino": -4.8766426,
+    "longDestino": -66.8961433
+  },
+  {
+    "latOrigem": -16.7273538,
+    "longOrigem": -43.8717676,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -16.7273538,
+    "longDestino": -43.8717676
+  },
+  {
+    "latOrigem": -25.4295963,
+    "longOrigem": -49.2712724,
+    "latDestino": -22.9110137,
+    "longDestino": -43.2093727
+  },
+  {
+    "latOrigem": -22.9110137,
+    "longOrigem": -43.2093727,
+    "latDestino": -25.4295963,
+    "longDestino": -49.2712724
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -2.438489,
+    "longDestino": -54.699611
+  },
+  {
+    "latOrigem": -2.438489,
+    "longOrigem": -54.699611,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -3.1316333,
+    "longDestino": -59.9825041
+  },
+  {
+    "latOrigem": -3.1316333,
+    "longOrigem": -59.9825041,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -3.1316333,
+    "longDestino": -59.9825041
+  },
+  {
+    "latOrigem": -3.1316333,
+    "longOrigem": -59.9825041,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -3.1316333,
+    "longDestino": -59.9825041
+  },
+  {
+    "latOrigem": -3.1316333,
+    "longOrigem": -59.9825041,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -3.1316333,
+    "longDestino": -59.9825041
+  },
+  {
+    "latOrigem": -3.1316333,
+    "longOrigem": -59.9825041,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.4295963,
+    "longOrigem": -49.2712724,
+    "latDestino": -25.5401479,
+    "longDestino": -54.5858139
+  },
+  {
+    "latOrigem": -25.5401479,
+    "longOrigem": -54.5858139,
+    "latDestino": -25.4295963,
+    "longDestino": -49.2712724
+  },
+  {
+    "latOrigem": -15.7934036,
+    "longOrigem": -47.8823172,
+    "latDestino": 35.1744466,
+    "longDestino": 136.8948682
+  },
+  {
+    "latOrigem": -15.7934036,
+    "longOrigem": -47.8823172,
+    "latDestino": 35.1744466,
+    "longDestino": 136.8948682
+  },
+  {
+    "latOrigem": -28.6592237,
+    "longOrigem": -56.0044295,
+    "latDestino": -29.6860512,
+    "longDestino": -53.8069214
+  },
+  {
+    "latOrigem": -29.6860512,
+    "longOrigem": -53.8069214,
+    "latDestino": -28.6592237,
+    "longDestino": -56.0044295
+  },
+  {
+    "latOrigem": -28.6592237,
+    "longOrigem": -56.0044295,
+    "latDestino": -29.6860512,
+    "longDestino": -53.8069214
+  },
+  {
+    "latOrigem": -29.6860512,
+    "longOrigem": -53.8069214,
+    "latDestino": -28.6592237,
+    "longDestino": -56.0044295
+  },
+  {
+    "latOrigem": -28.2550598,
+    "longOrigem": -52.3966606,
+    "latDestino": -29.1684951,
+    "longDestino": -51.1796197
+  },
+  {
+    "latOrigem": -29.1684951,
+    "longOrigem": -51.1796197,
+    "latDestino": -28.2550598,
+    "longDestino": -52.3966606
+  },
+  {
+    "latOrigem": -15.7934036,
+    "longOrigem": -47.8823172,
+    "latDestino": -23.5506507,
+    "longDestino": -46.6333824
+  },
+  {
+    "latOrigem": -23.5506507,
+    "longOrigem": -46.6333824,
+    "latDestino": -15.7934036,
+    "longDestino": -47.8823172
+  },
+  {
+    "latOrigem": -15.7934036,
+    "longOrigem": -47.8823172,
+    "latDestino": -2.8986278,
+    "longDestino": -40.4506081
+  },
+  {
+    "latOrigem": -3.8534468,
+    "longOrigem": -40.9185642,
+    "latDestino": -2.8986278,
+    "longDestino": -40.4506081
+  },
+  {
+    "latOrigem": -2.8986278,
+    "longOrigem": -40.4506081,
+    "latDestino": -15.7934036,
+    "longDestino": -47.8823172
+  },
+  {
+    "latOrigem": -2.8986278,
+    "longOrigem": -40.4506081,
+    "latDestino": -3.8534468,
+    "longDestino": -40.9185642
+  },
+  {
+    "latOrigem": -27.5973002,
+    "longOrigem": -48.5496098,
+    "latDestino": -21.178333,
+    "longDestino": -47.8066671
+  },
+  {
+    "latOrigem": -21.178333,
+    "longOrigem": -47.8066671,
+    "latDestino": -27.5973002,
+    "longDestino": -48.5496098
+  },
+  {
+    "latOrigem": -27.5973002,
+    "longOrigem": -48.5496098,
+    "latDestino": -21.178333,
+    "longDestino": -47.8066671
+  },
+  {
+    "latOrigem": -21.178333,
+    "longOrigem": -47.8066671,
+    "latDestino": -27.5973002,
+    "longDestino": -48.5496098
+  },
+  {
+    "latOrigem": -30.0324999,
+    "longOrigem": -51.2303767,
+    "latDestino": -29.6860512,
+    "longDestino": -53.8069214
+  },
+  {
+    "latOrigem": -29.6860512,
+    "longOrigem": -53.8069214,
+    "latDestino": -30.0324999,
+    "longDestino": -51.2303767
+  }
+]
