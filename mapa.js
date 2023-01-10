@@ -8,7 +8,7 @@ let pagamentos = [];
 
 obterDados();
 async function obterDados() {
-    const resposta = await fetch('2023_Trecho.csv');
+    const resposta = await fetch('bd_trecho.csv');
     const dadosBrutos = await resposta.text();
     const dados = dadosBrutos.replaceAll('"', '');
     const linhas = dados.split('\n').slice(1);
@@ -39,7 +39,7 @@ async function obterDados() {
 cruzarDados();
 ////////////////
 async function cruzarDados() {
-    const resposta = await fetch('2023_Pagamento.csv');
+    const resposta = await fetch('bd_pagamento.csv');
     const dadosBrutos = await resposta.text();
     const dados = dadosBrutos.replaceAll('"', '');
     const linhas = dados.split('\n').slice(1);
@@ -60,7 +60,7 @@ async function cruzarDados() {
 }
 ////////////////
 async function carregarLatLong() {
-    const respostaLatLong = await fetch('coord.json');
+    const respostaLatLong = await fetch('bd_coord.json');
     const dadosLatLong = await respostaLatLong.json();
     coordenadas = dadosLatLong;
     carregarMapa();
