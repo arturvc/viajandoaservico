@@ -101,8 +101,8 @@ function carregarMapa() {
     const urlOSM = 'https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}';
     const tilesMap = L.tileLayer(urlOSM, {
         attribution: 'Map data &copy;  <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: MAPBOX_ID,
-        accessToken: MAPBOX_API
+        id: 'arturvc/clcnc0iwi00oy14s1oo4b5v68',
+        accessToken: 'pk.eyJ1IjoiYXJ0dXJ2YyIsImEiOiJjamVzaXNhaDUwM2dzMnFwa3A2MndjemJ6In0.QkEbXr54ao40qL9I1DuW0g'
     });
     tilesMap.addTo(mapa);
     ///////////
