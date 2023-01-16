@@ -86,7 +86,7 @@ function carregarMapa() {
     let grupoOficial = L.layerGroup([]);
     let grupoProprio = L.layerGroup([]);
     let grupoRodoviario = L.layerGroup([]);
-    let grupoFerroviario = L. layerGroup([]);
+    let grupoFerroviario = L.layerGroup([]);
 
     let overlayMaps = {
         "Transporte aéreo": grupoAereo,
@@ -100,7 +100,7 @@ function carregarMapa() {
 
 
     const mapa = L.map('itemMapa', {
-        layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario, grupoFluvial]
+        layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario, grupoFluvial, grupoFerroviario]
     }, ).setView([-15.7934036, -47.8823172], 4);
     const urlOSM = 'https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}';
     const tilesMap = L.tileLayer(urlOSM, {
@@ -277,7 +277,7 @@ function carregarMapa() {
                 arquear(latO, lonO, latD, lonD, grupoProprio);
                 break;
 
-                case "fluvial":
+            case "fluvial":
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
@@ -287,12 +287,12 @@ function carregarMapa() {
                         icon: iconeFluvial
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
-                    grupoFluvial.addLayer(markerOrigem);
-                    grupoFluvial.addLayer(markerDestino);
+                grupoFluvial.addLayer(markerOrigem);
+                grupoFluvial.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoFluvial);
                 break;
 
-                case "ferroviário":
+            case "ferroviário":
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
@@ -302,8 +302,8 @@ function carregarMapa() {
                         icon: iconeFerroviario
                     }).bindPopup(txtDestino)
                     .addTo(mapa);
-                    grupoFerroviario.addLayer(markerOrigem);
-                    grupoFerroviario.addLayer(markerDestino);
+                grupoFerroviario.addLayer(markerOrigem);
+                grupoFerroviario.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoFerroviario);
                 break;
 
