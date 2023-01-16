@@ -82,21 +82,25 @@ function carregarMapa() {
 
     let grupoAereo = L.layerGroup([]);
     let grupoInvalido = L.layerGroup([]);
+    let grupoFluvial = L.layerGroup([]);
     let grupoOficial = L.layerGroup([]);
     let grupoProprio = L.layerGroup([]);
     let grupoRodoviario = L.layerGroup([]);
+    let grupoFerroviario = L. layerGroup([]);
 
     let overlayMaps = {
         "Transporte aéreo": grupoAereo,
         "Veículo oficial": grupoOficial,
         "Veículo próprio": grupoProprio,
         "Transporte rodoviário": grupoRodoviario,
+        "Transporte fluvial": grupoFluvial,
+        "Tranporte ferroviário": grupoFerroviario,
         "Outros": grupoInvalido
     };
 
 
     const mapa = L.map('itemMapa', {
-        layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario]
+        layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario, grupoFluvial]
     }, ).setView([-15.7934036, -47.8823172], 4);
     const urlOSM = 'https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}';
     const tilesMap = L.tileLayer(urlOSM, {
@@ -151,7 +155,18 @@ function carregarMapa() {
         iconAnchor: [0, tam], // point of the icon which will correspond to marker's location
         popupAnchor: [0, -tam] // point from which the popup should open relative to the iconAnchor
     });
-
+    const iconeFluvial = L.icon({
+        iconUrl: 'i_fluvial.png',
+        iconSize: [tam, 25], // size of the icon
+        iconAnchor: [0, 25], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, -25] // point from which the popup should open relative to the iconAnchor
+    });
+    const iconeFerroviario = L.icon({
+        iconUrl: 'i_ferroviario.png',
+        iconSize: [25, tam], // size of the icon
+        iconAnchor: [0, tam], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, -tam] // point from which the popup should open relative to the iconAnchor
+    });
 
 
     //////////
@@ -260,6 +275,36 @@ function carregarMapa() {
                 grupoProprio.addLayer(markerOrigem);
                 grupoProprio.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoProprio);
+                break;
+
+                case "fluvial":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
+                markerDestino = L.marker([latD, lonD], {
+                        icon: iconeFluvial
+                    }).bindPopup(txtDestino)
+                    .addTo(mapa);
+                    grupoFluvial.addLayer(markerOrigem);
+                    grupoFluvial.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoFluvial);
+                break;
+
+                case "ferroviário":
+                markerOrigem = L.marker([latO, lonO], {
+                        icon: iconeOrigem
+                    })
+                    .bindPopup(txtOrigem)
+                    .addTo(mapa);
+                markerDestino = L.marker([latD, lonD], {
+                        icon: iconeFerroviario
+                    }).bindPopup(txtDestino)
+                    .addTo(mapa);
+                    grupoFerroviario.addLayer(markerOrigem);
+                    grupoFerroviario.addLayer(markerDestino);
+                arquear(latO, lonO, latD, lonD, grupoFerroviario);
                 break;
 
             default:
