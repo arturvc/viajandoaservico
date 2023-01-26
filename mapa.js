@@ -364,7 +364,7 @@ function carregarMapa() {
 
         var pathOptions = {
             color: 'rgba(255,255,255,0.5)',
-            weight: 3
+            weight: 1
         }
 
         // if (typeof document.getElementById('itemMapa').animate === "function") {
