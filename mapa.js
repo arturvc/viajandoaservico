@@ -1,73 +1,20 @@
-console.log("olá!");
-console.log("Link de tiles para LealLet: https://leaflet-extras.github.io/leaflet-providers/preview/");
+// Viajando a serviço
+// Desenvolvido por @arturzyx
+// Cariri, 2023.
+let viagens = [];
 
-let coordenadas = [];
-let trechos = [];
-let pagamentos = [];
+carregarLatLong();
 
-
-obterDados();
-async function obterDados() {
-    const resposta = await fetch('bd_trecho.csv');
-    const dadosBrutos = await resposta.text();
-    const dados = dadosBrutos.replaceAll('"', '');
-    const linhas = dados.split('\n').slice(1);
-
-    linhas.forEach(elemento => {
-        const linha = elemento.split(';');
-        const id = parseInt(linha[0]);
-
-        trechos.push({
-            'identidade': id,
-            'origemData': linha[3],
-            'origemPais': linha[4],
-            'origemUF': linha[5],
-            'origemCidade': linha[6],
-            'destinoPais': linha[8],
-            'destinoUF': linha[9],
-            'destinoCidade': linha[10],
-            'meioTransporte': linha[11].toLowerCase()
-        });
-    });
-
-    carregarLatLong();
-
-
-}
-
-
-cruzarDados();
-////////////////
-async function cruzarDados() {
-    const resposta = await fetch('bd_pagamento.csv');
-    const dadosBrutos = await resposta.text();
-    const dados = dadosBrutos.replaceAll('"', '');
-    const linhas = dados.split('\n').slice(1);
-
-    linhas.forEach(elemento => {
-        const linha = elemento.split(';');
-        const id = parseInt(linha[0]);
-
-
-
-        pagamentos.push({
-            'identidade': id,
-            'nomeOrgao': linha[3],
-            'nomePagador': linha[5],
-            'nomeUnidade': linha[7]
-        });
-    });
-}
-////////////////
 async function carregarLatLong() {
-    const respostaLatLong = await fetch('bd_coord.json');
+    const respostaLatLong = await fetch('viagens.json');
     const dadosLatLong = await respostaLatLong.json();
-    coordenadas = dadosLatLong;
+    viagens = dadosLatLong;
+    //console.log(viagens);
     carregarMapa();
 }
 
 function carregarMapa() {
-    // let mapa = L.map('itemMapa').setView([coordenadas[0].latDestino, coordenadas[0].longDestino], 4);
+    // let mapa = L.map('itemMapa').setView([viagens[0].latDestino, viagens[0].longDestino], 4);
     // //https://api.mapbox.com/styles/v1/{id}/clclftyg2001w14t2egqu4grf/wmts?access_token={accessToken}        
 
     // let tilesMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -100,7 +47,8 @@ function carregarMapa() {
 
 
     const mapa = L.map('itemMapa', {
-        layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario, grupoFluvial, grupoFerroviario]
+        //layers: [grupoAereo, grupoInvalido, grupoOficial, grupoProprio, grupoRodoviario, grupoFluvial, grupoFerroviario]
+        layers: [grupoFluvial]
     }, ).setView([-15.7934036, -47.8823172], 4);
     const urlOSM = 'https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}';
     const tilesMap = L.tileLayer(urlOSM, {
@@ -169,49 +117,57 @@ function carregarMapa() {
     });
 
 
-    //////////
-    for (let i = 0; i < trechos.length; i++) {
-        for (let j = 0; j < pagamentos.length; j++) {
-            if (pagamentos[j].identidade == trechos[i].identidade) {
-                trechos[i].nomeOrgao = pagamentos[j].nomeOrgao;
-                //trechos[i].nomePagador = pagamentos[j].nomePagador;
-                // trechos[i].nomeUnidade = pagamentos[j].nomeUnidade;
-                break;
-            }
-        }
-    }
 
-    for (let i = 0; i < trechos.length; i++) {
-        let latO = coordenadas[i].latOrigem + Math.random(1) / 50;
-        let lonO = coordenadas[i].longOrigem + Math.random(1) / 50;
-        let latD = coordenadas[i].latDestino + Math.random(1) / 50;
-        let lonD = coordenadas[i].longDestino + Math.random(1) / 50;
+    for (let i = 0; i < viagens.length; i++) {
+        let latO = viagens[i].latOrigem + Math.random(1) / 50;
+        let lonO = viagens[i].longOrigem + Math.random(1) / 50;
+        let latD = viagens[i].latDestino + Math.random(1) / 50;
+        let lonD = viagens[i].longDestino + Math.random(1) / 50;
 
-        if (trechos[i].nomeOrgao == undefined) {
-            trechos[i].nomeOrgao = " - ";
-            //trechos[i].nomePagador = " - ";
-            //trechos[i].nomeUnidade = " - ";
+        if (viagens[i].nomeOrgao == undefined) {
+            viagens[i].nomeOrgao = " - ";
+            viagens[i].nomePagador = " - ";
+            viagens[i].nomeUnidade = " - ";
+            viagens[i].valor = " - ";
         }
 
-        let txtOrigem = trechos[i].origemData + "<br> Origem: <strong>" + trechos[i].origemCidade + " - " + trechos[i].origemUF + " - " + trechos[i].origemPais + "</strong> <br> Destino: " + trechos[i].destinoCidade + " - " + trechos[i].destinoUF + " - " + trechos[i].destinoPais + "<br> Meio de transporte: " + trechos[i].meioTransporte + "<br> Processo nº: " + trechos[i].identidade + "<br>" + trechos[i].nomeOrgao;
-        let txtDestino = trechos[i].origemData + "<br> Origem: " + trechos[i].origemCidade + " - " + trechos[i].origemUF + " - " + trechos[i].origemPais + "<br> Destino: <strong>" + trechos[i].destinoCidade + " - " + trechos[i].destinoUF + " - " + trechos[i].destinoPais + "</strong> <br> Meio de transporte: " + trechos[i].meioTransporte + "<br> Processo nº: " + trechos[i].identidade + "<br>" + trechos[i].nomeOrgao;
+        let urlId = "https://portaldatransparencia.gov.br/viagens/consulta?paginacaoSimples=true&tamanhoPagina=&offset=&direcaoOrdenacao=asc&pcdp=" + viagens[i].identidade;
+        let txtOrigem = viagens[i].origemData + "<br> Origem: <strong>" + viagens[i].origemCidade + " - " +
+            viagens[i].origemUF + " - " + viagens[i].origemPais + "</strong> <br> Destino: " + viagens[i].destinoCidade + " - " +
+            viagens[i].destinoUF + " - " + viagens[i].destinoPais + "<br> Meio de transporte: " + viagens[i].meioTransporte +
+            "<br> Processo nº: " +
+            // `<a href="${urlId}" target="blank">${viagens[i].identidade}</a>` +
+            viagens[i].identidade +
+            "<br>" + viagens[i].nomeOrgao + " - " +
+            viagens[i].nomePagador + " - " + viagens[i].nomeUnidade +
+            "<br> Valor da viagem: R$" + viagens[i].valor;
+
+        let txtDestino = "<h4> Viajando a serviço em " + viagens[i].origemData + "</h4><br> Origem: " + viagens[i].origemCidade + " - " + viagens[i].origemUF + " - " +
+            viagens[i].origemPais + "<br> Destino: <strong>" + viagens[i].destinoCidade + " - " + viagens[i].destinoUF + " - " +
+            viagens[i].destinoPais + "</strong> <br> Meio de transporte: " + viagens[i].meioTransporte +
+            "<br> Processo nº: " +
+            //`<a href="${urlId}" target="blank">${viagens[i].identidade}</a>` +
+            viagens[i].identidade +
+            "<br>" + viagens[i].nomeOrgao + " - " +
+            viagens[i].nomePagador + " - " + viagens[i].nomeUnidade +
+            "<br> Valor da viagem: R$" + viagens[i].valor;;
 
 
         let markerDestino = new L.marker;
         let markerOrigem = new L.marker;
 
 
-        switch (trechos[i].meioTransporte) {
+        switch (viagens[i].meioTransporte) {
             case "aéreo":
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                // .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeAereo
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeAereo
+                }).bindPopup(txtDestino);
+                //   .addTo(mapa);
                 grupoAereo.addLayer(markerOrigem);
                 grupoAereo.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoAereo);
@@ -221,12 +177,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                //.addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeInvalido
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeInvalido
+                }).bindPopup(txtDestino);
+                // .addTo(mapa);
                 grupoInvalido.addLayer(markerOrigem);
                 grupoInvalido.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoInvalido);
@@ -236,12 +192,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                // .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeRodoviario
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeRodoviario
+                }).bindPopup(txtDestino);
+                //  .addTo(mapa);
                 grupoRodoviario.addLayer(markerOrigem);
                 grupoRodoviario.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoRodoviario);
@@ -251,12 +207,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                //  .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeVeiOficial
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeVeiOficial
+                }).bindPopup(txtDestino);
+                //.addTo(mapa);
                 grupoOficial.addLayer(markerOrigem);
                 grupoOficial.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoOficial);
@@ -266,12 +222,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                //.addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeVeiProprio
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeVeiProprio
+                }).bindPopup(txtDestino);
+                // .addTo(mapa);
                 grupoProprio.addLayer(markerOrigem);
                 grupoProprio.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoProprio);
@@ -281,12 +237,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                //.addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeFluvial
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeFluvial
+                }).bindPopup(txtDestino);
+                // .addTo(mapa);
                 grupoFluvial.addLayer(markerOrigem);
                 grupoFluvial.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoFluvial);
@@ -296,12 +252,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                // .addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeFerroviario
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeFerroviario
+                }).bindPopup(txtDestino);
+                //.addTo(mapa);
                 grupoFerroviario.addLayer(markerOrigem);
                 grupoFerroviario.addLayer(markerDestino);
                 arquear(latO, lonO, latD, lonD, grupoFerroviario);
@@ -311,12 +267,12 @@ function carregarMapa() {
                 markerOrigem = L.marker([latO, lonO], {
                         icon: iconeOrigem
                     })
-                    .bindPopup(txtOrigem)
-                    .addTo(mapa);
+                    .bindPopup(txtOrigem);
+                //.addTo(mapa);
                 markerDestino = L.marker([latD, lonD], {
-                        icon: iconeOrigem
-                    }).bindPopup(txtDestino)
-                    .addTo(mapa);
+                    icon: iconeOrigem
+                }).bindPopup(txtDestino);
+                //.addTo(mapa);
                 break;
         }
 
@@ -386,7 +342,8 @@ function carregarMapa() {
                 'M', latlng1,
                 'Q', midpointLatLng,
                 latlng2
-            ], pathOptions).addTo(mapa);
+            ], pathOptions);
+        //.addTo(mapa);
         grupo.addLayer(curvedPath);
     }
     ///////////////////
