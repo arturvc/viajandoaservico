@@ -6,7 +6,7 @@
 
 [Viajando a serviço](https://arturvc.github.io/viajandoaservico/)
 
-Ultima atualização em: 25/Jan/2023.
+Ultima atualização em: 30/Jan/2023.
 
 Projeto desenvolvido por @arturzyx. 
 
